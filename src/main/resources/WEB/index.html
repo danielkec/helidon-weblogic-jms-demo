@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Helidon Reactive Messaging</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+
+<div id="root">
+    <div id="producer">
+        <div id="inputCloud">
+            <input type="text" id="input" value="Fly Helidon!"/>
+        </div>
+        <div id="submit">Send</div>
+    </div>
+    <div id="helidon"></div>
+    <div id="rest-tip">
+        <div id="rest-tip-arrow"></div>
+        <div id="rest-tip-label">REST call /frank/send/{msg}</div>
+    </div>
+    <div id="sse-tip">
+        <div id="sse-tip-label">SSE messages received</div>
+        <div id="sse-tip-arrow"></div>
+    </div>
+    <div id="msgBox"></div>
+</div>
+
+<script>
+
+    const helidon = $('#helidon');
+    const messageBox = $('#msgBox');
+    const input = $("#input");
+    const submit = $("#submit");
+
+    // Pre-filled example messages
+    const templates = ["Fly Helidon!", "We ❤️ microservices!", "Reactive wings are faster!"];
+    let template_idx = 1;
+
+    submit.on("click", onSubmit);
+    new EventSource("frank/sse").onmessage = e => this.onSSE(e.data);
+
+    function onSSE(data) {
+        fly();
+        messageBox.prepend(`<div id="msg">${data}</div>`);
+        cleanQueue();
+    }
+
+    function cleanQueue() {
+        const messageQueue = $("#msgBox div");
+        if (messageQueue.length > 6) {
+            messageQueue
+                .last()
+                .fadeOut(100, function () {
+                    $(this).remove();
+                    cleanQueue();
+                });
+        }
+    }
+
+    function onSubmit() {
+        fetch("frank/send/" + input.val(), {method: 'POST'});
+        template_idx = template_idx < templates.length - 1 ? template_idx + 1 : 0;
+        input.val(templates[template_idx]);
+    }
+
+    function fly() {
+        const id = setInterval(handler, 2);
+        let position = -500;
+
+        function handler() {
+            if (position > (window.innerWidth)) {
+                clearInterval(id);
+            } else {
+                position += 50;
+                helidon.css("left", `${position}px`);
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
