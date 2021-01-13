@@ -48,7 +48,7 @@ cd ${JAVA_DIR};
 docker build --tag oracle/serverjre:8 .;
 
 cd ${WLS_DIR};
-bash buildDockerImage.sh -d -v ${WLS_VERSION};
+bash buildDockerImage.sh -s -d -v ${WLS_VERSION};
 
 cd ${WLS_DOMAIN_DIR}/12213-domain;
 docker build -f Dockerfile -t 12213-weblogic-sample-domain .
