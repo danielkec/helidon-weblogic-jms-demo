@@ -1,5 +1,5 @@
 # Helidon Weblogic JMS demo project
-Helidon messaging with WebLogic JMS demo project for Medium article [Helidon messaging with Weblogic JMS](https://medium.com/@danielkec/helidon-messaging-with-weblogic-jms-e05033a19040)
+Helidon messaging with WebLogic JMS demo project for Medium article [Helidon messaging with Weblogic JMS](https://medium.com/helidon/helidon-messaging-with-weblogic-jms-7e6ecccdd82d)
 
 ### Build and run local Weblogic with example queues
 
