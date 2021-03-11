@@ -9,13 +9,13 @@ script asks for downloading of server jre and Weblogic installation files. On JR
 
 | File | Destination | URL for download |
 | --- | --- | --- |
-| server-jre-8u271-linux-x64.tar.gz | ./target/ora-images/java/ | https://www.oracle.com/java/technologies/javase-server-jre8-downloads.html |
+| server-jre-8uXXX-linux-x64.tar.gz | ./target/ora-images/java/ | https://www.oracle.com/java/technologies/javase-server-jre8-downloads.html |
 | fmw_12.2.1.3.0_wls_quick_Disk1_1of1.zip | ./target/ora-images/wls/12.2.1.3/| https://www.oracle.com/middleware/technologies/weblogic-server-downloads.html |
 
 ```shell
 bash buildAndRunWeblogic.sh
 ...
-> Download and copy server-jre-8u271-linux-x64.tar.gz to /home/kec/helidon-weblogic-jms-demo/target/ora-images/java/ 
+> Download and copy server-jre-8uXXX-linux-x64.tar.gz to /home/kec/helidon-weblogic-jms-demo/target/ora-images/java/ 
 > from https://www.oracle.com/java/technologies/javase-server-jre8-downloads.html
 > Hit [ENTER] when ready to continue ...
 > Download and copy fmw_12.2.1.3.0_wls_quick_Disk1_1of1.zip to /home/kec/helidon-weblogic-jms-demo/target/ora-images/wls/12.2.1.3/ 
