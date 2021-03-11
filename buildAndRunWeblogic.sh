@@ -4,10 +4,10 @@ IMAGES_DIR=${TEMP_DIR}/ora-images
 JAVA_DIR=${IMAGES_DIR}/java
 WLS_DIR=${IMAGES_DIR}/wls
 WLS_DOMAIN_DIR=${IMAGES_DIR}/wls-sample-domain
-IMAGES_ZIP_URL=https://github.com/oracle/docker-images/archive/master.zip
-WLS_IMAGES_ZIP_DIR=docker-images-master/OracleWebLogic/dockerfiles
-SAMPLES_IMAGES_ZIP_DIR=docker-images-master/OracleWebLogic/samples
-JAVA_IMAGES_ZIP_DIR=docker-images-master/OracleJava/8
+IMAGES_ZIP_URL=https://github.com/oracle/docker-images/archive/main.zip
+WLS_IMAGES_ZIP_DIR=docker-images-main/OracleWebLogic/dockerfiles
+SAMPLES_IMAGES_ZIP_DIR=docker-images-main/OracleWebLogic/samples
+JAVA_IMAGES_ZIP_DIR=docker-images-main/OracleJava/8
 WLS_VERSION=12.2.1.3
 BASE_IMAGE_NAME=oracle/weblogic:${WLS_VERSION}
 IMAGE_NAME=helidon/oracle-aq-example
@@ -27,12 +27,12 @@ curl -LJ -o ${TEMP_DIR}/ora-images.zip ${IMAGES_ZIP_URL}
 unzip -qq ${TEMP_DIR}/ora-images.zip "${WLS_IMAGES_ZIP_DIR}/*" -d ${IMAGES_DIR}
 unzip -qq ${TEMP_DIR}/ora-images.zip "${SAMPLES_IMAGES_ZIP_DIR}/*" -d ${IMAGES_DIR}
 unzip -qq ${TEMP_DIR}/ora-images.zip "${JAVA_IMAGES_ZIP_DIR}/*" -d ${IMAGES_DIR}
-mv ${IMAGES_DIR}/${WLS_IMAGES_ZIP_DIR} ${WLS_DIR}/
-mv ${IMAGES_DIR}/${SAMPLES_IMAGES_ZIP_DIR} ${WLS_DOMAIN_DIR}/
-mv ${IMAGES_DIR}/${WLS_IMAGES_ZIP_DIR}/buildDockerImage.sh ${WLS_DIR}/
-mv ${IMAGES_DIR}/${JAVA_IMAGES_ZIP_DIR} ${JAVA_DIR}/
+cp -r ${IMAGES_DIR}/${WLS_IMAGES_ZIP_DIR} ${WLS_DIR}/
+cp -r ${IMAGES_DIR}/${SAMPLES_IMAGES_ZIP_DIR} ${WLS_DOMAIN_DIR}/
+cp -r ${IMAGES_DIR}/${WLS_IMAGES_ZIP_DIR}/buildDockerImage.sh ${WLS_DIR}/
+cp -r ${IMAGES_DIR}/${JAVA_IMAGES_ZIP_DIR} ${JAVA_DIR}/
 # x-www-browser https://www.oracle.com/middleware/technologies/weblogic-server-downloads.html
-echo Download and copy server-jre-8u271-linux-x64.tar.gz to ${JAVA_DIR}/
+echo Download and copy $(cat ${JAVA_DIR}/Dockerfile | grep -o 'server-jre-8u[0-9]*-linux-x64.tar.gz') to ${JAVA_DIR}/
 echo from https://www.oracle.com/java/technologies/javase-server-jre8-downloads.html
 echo "Hit [ENTER] when ready to continue ..."
 read ;
